@@ -12,6 +12,9 @@
         function drawChart() {
 
             var data = new google.visualization.DataTable();
+            var format = new google.visualization.DateFormat({
+                formatType: 'long'
+            });
             data.addColumn('string', 'Task ID');
             data.addColumn('string', 'Task Name');
             data.addColumn('string', 'Resource');
@@ -20,7 +23,8 @@
             data.addColumn('number', 'Duration');
             data.addColumn('number', 'Percent Complete');
             data.addColumn('string', 'Dependencies');
-
+            format.format(data,3);
+            format.format(data,4);
             $.ajax({
                 url: "tasks",
                 "headers": {
@@ -29,8 +33,13 @@
                 async: false
             }).done(function (tasks) {
                 $.each(tasks, function (idx, val) {
+                            var creationDate = val.creationDate;
+                            var deadline = val.deadline;
                             data.addRow([
-                                String.valueOf(val.id), val.name, val.assignedUser.fullName, new Date(val.creationDate), new Date(val.deadline), null, val.progress, null
+                                val.id.toString(), val.name, val.assignedUser.fullName, new Date(creationDate[0],
+                                        creationDate[1], creationDate[2], creationDate[3], creationDate[4]),
+                                new Date(deadline[0], deadline[1], deadline[2], deadline[3], deadline[4]), null,
+                                val.progress, null
                             ])
                         }
                 )

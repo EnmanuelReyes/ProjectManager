@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Enmanuel Reyes
@@ -86,10 +84,11 @@ public class TaskController {
     @RequestMapping(value = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Iterable<Task> tasks() {
-        return taskService.findAll();
+        return taskService.getTasksForDashboard();
     }
+
     @RequestMapping(value = "/mocktasks")
-    public ResponseEntity createDummyData(){
+    public ResponseEntity createDummyData() {
         taskService.createDummyData();
         return ResponseEntity.ok().build();
     }

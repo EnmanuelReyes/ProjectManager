@@ -46,7 +46,9 @@
     $(".dropdown-button").dropdown();
     $.datetimepicker.setLocale('es');
     $('.datetimepicker').datetimepicker({
-        formatTime:'H:i',
+        minDate: 0,
+        minTime: 0,
+        formatTime: 'H:i',
         format: 'd/m/Y H:i',
         mask: true,
         startDate: new Date()

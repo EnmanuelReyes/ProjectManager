@@ -17,6 +17,7 @@
         </ul>
         <div class="row">
             <input th:field="${task.id}" type="hidden"/>
+            <input th:field="${task.creationDate}" type="hidden"/>
             <div class="input-field col s6">
                 <input th:field="${task.name}" id="name" type="text" required="required"
                        th:errorclass="invalid"/>

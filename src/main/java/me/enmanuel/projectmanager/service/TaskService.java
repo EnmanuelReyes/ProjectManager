@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,6 +48,11 @@ public class TaskService implements Service<Task>{
     @Override
     public Iterable<Task> findAll() {
     return taskRepository.findAll();
+    }
+
+
+    public List<Task> getTasksForDashboard() {
+        return taskRepository.findByAssignedUserNotNullAndDeadlineNotNull();
     }
 
     public void createDummyData() {
