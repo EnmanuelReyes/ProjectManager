@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,6 +34,8 @@ public class Task {
     @ManyToOne
     private User creationUser;
     private Byte progress;
+    @ManyToMany
+    private List<Task> dependencies;
 
     public Integer getId() {
         return id;
@@ -96,5 +99,13 @@ public class Task {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public List<Task> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<Task> dependencies) {
+        this.dependencies = dependencies;
     }
 }

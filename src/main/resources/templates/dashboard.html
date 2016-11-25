@@ -23,8 +23,8 @@
             data.addColumn('number', 'Duration');
             data.addColumn('number', 'Percent Complete');
             data.addColumn('string', 'Dependencies');
-            format.format(data,3);
-            format.format(data,4);
+            format.format(data, 3);
+            format.format(data, 4);
             $.ajax({
                 url: "tasks",
                 "headers": {
@@ -35,11 +35,18 @@
                 $.each(tasks, function (idx, val) {
                             var creationDate = val.creationDate;
                             var deadline = val.deadline;
+                            var dependencies = null;
+                            if (val.dependencies) {
+                                var dependenciesIds = val.dependencies.map(function (x) {
+                                    return x.id;
+                                });
+                                dependencies = dependenciesIds.join();
+                            }
                             data.addRow([
                                 val.id.toString(), val.name, val.assignedUser.fullName, new Date(creationDate[0],
-                                        creationDate[1], creationDate[2], creationDate[3], creationDate[4]),
-                                new Date(deadline[0], deadline[1], deadline[2], deadline[3], deadline[4]), null,
-                                val.progress, null
+                                        creationDate[1] - 1, creationDate[2], creationDate[3], creationDate[4]),
+                                new Date(deadline[0], deadline[1] - 1, deadline[2], deadline[3], deadline[4]), null,
+                                val.progress, dependencies
                             ])
                         }
                 )

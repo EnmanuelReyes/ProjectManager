@@ -31,7 +31,7 @@ public class TaskController {
 
     @RequestMapping("/tasks")
     public ModelAndView tasks(ModelAndView modelAndView) {
-        modelAndView.addObject("tasks", taskService.findAll());
+        attachTasks(modelAndView.getModelMap());
         modelAndView.setViewName("tasks");
         return modelAndView;
     }
@@ -54,6 +54,7 @@ public class TaskController {
         modelAndView.setViewName("task");
         modelAndView.addObject("task", task);
         attachUsers(modelAndView.getModelMap());
+        attachTasks(modelAndView.getModelMap());
         return modelAndView;
     }
 
@@ -64,6 +65,7 @@ public class TaskController {
         modelAndView.setViewName("task");
         modelAndView.addObject("task", new Task());
         attachUsers(modelAndView.getModelMap());
+        attachTasks(modelAndView.getModelMap());
         return modelAndView;
     }
 
@@ -80,6 +82,9 @@ public class TaskController {
     private void attachUsers(ModelMap modelMap) {
         modelMap.addAttribute("users", userService.findAll());
     }
+    private void attachTasks(ModelMap modelMap) {
+        modelMap.addAttribute("tasks", taskService.findAll());
+    }
 
     @RequestMapping(value = "/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -92,4 +97,6 @@ public class TaskController {
         taskService.createDummyData();
         return ResponseEntity.ok().build();
     }
+
+
 }

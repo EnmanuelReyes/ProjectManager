@@ -31,7 +31,6 @@ public class TaskService implements Service<Task>{
 
     @Override
     public Task save(Task var1) {
-        if (var1.getId() == null) var1.setCreationDate(LocalDateTime.now());
         return taskRepository.save(var1);
     }
 
